@@ -1,0 +1,26 @@
+name: YAML Lint
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: false
+        type: string
+        default: "."
+
+jobs:
+  yaml-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Download yamllint config
+        run: |
+          curl -o .yamllint.yml https://raw.githubusercontent.com/Genpact-Capstone-Project-Group-1/org-workflows/main/configs/.yamllint.yml
+
+      - name: Run yamllint
+        working-directory: ${{ inputs.working-directory }}
+        run: yamllint .

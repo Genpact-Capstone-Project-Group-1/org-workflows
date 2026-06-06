@@ -1,0 +1,38 @@
+name: Python Lint
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: "3.12"
+      working-directory:
+        required: false
+        type: string
+        default: "."
+
+jobs:
+  python-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Download ruff config
+        run: |
+          curl -o ruff.toml https://raw.githubusercontent.com/Genpact-Capstone-Project-Group-1/org-workflows/main/configs/ruff.toml
+
+      - name: Run ruff lint
+        working-directory: ${{ inputs.working-directory }}
+        run: ruff check .
+
+      - name: Run ruff format check
+        working-directory: ${{ inputs.working-directory }}
+        run: ruff format --check .

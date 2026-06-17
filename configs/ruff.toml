@@ -1,6 +1,10 @@
 line-length = 88
 target-version = "py312"
 
+builtins = ["spark", "dbutils", "display", "displayHTML"]
+
+extend-exclude = ["*.ipynb"]
+
 [lint]
 select = [
   "E",   # pycodestyle errors

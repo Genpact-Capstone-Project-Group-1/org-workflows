@@ -32,7 +32,3 @@ jobs:
       - name: Run ruff lint
         working-directory: ${{ inputs.working-directory }}
         run: ruff check .
-
-      - name: Run ruff format check
-        working-directory: ${{ inputs.working-directory }}
-        run: ruff format --check .
